@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+  </head>
+  <body>
+    <button id="test">模拟请求数据</button>
+    1231231231
+  </body>
+</html>
+
+<script>
+  $('#test').on('click', () => {
+    $.ajax({
+      url: '/graphql',
+      method: 'post',
+      dataType: 'json',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InN0cmluZyIsImlhdCI6MTU3OTcwMjI2NywiZXhwIjoxNTc5NzA1ODY3fQ.N5LxEXhVXfcG-LUknpQsHbQqor5Qo5PCU9KzkvmD93Q',
+      },
+      data: JSON.stringify({
+        operationName: null,
+        variables: {},
+        query: '{ photoFindAll {  name}}',
+      }),
+      success: function(res) {
+        console.log(res);
+      },
+    });
+  });
+</script>

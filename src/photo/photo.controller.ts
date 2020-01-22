@@ -17,11 +17,12 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import { PhotoArgs } from './dto/photo.dto';
 
 @ApiTags('photo')
 @Controller('photo')
 @ApiBearerAuth() // 在线文档增加登录鉴权 (Swagger)
-@UseGuards(AuthGuard()) // 整个类的方法都是 401鉴权的
+@UseGuards(AuthGuard('jwt')) // 整个类的方法都是jwt鉴权的
 export class PhotoController {
   constructor(private readonly photoService: PhotoService) {}
 
@@ -35,8 +36,8 @@ export class PhotoController {
   // 新增photo
   @Post()
   @ApiOperation({ summary: '新增photo' })
-  add(@Body() Photo: Photo): Promise<Photo> {
-    return this.photoService.add(Photo);
+  add(@Body() PhotoArgs: PhotoArgs): Promise<Photo> {
+    return this.photoService.add(PhotoArgs);
   }
 
   // 根据id获取指定photo
@@ -60,7 +61,10 @@ export class PhotoController {
   // 根据id修改指定photo
   @Put(':id')
   @ApiOperation({ summary: '根据id修改photo' })
-  async update(@Param('id') id: number, @Body() Photo: Photo): Promise<Photo> {
-    return this.photoService.update(id, Photo);
+  async update(
+    @Param('id') id: number,
+    @Body() PhotoArgs: PhotoArgs,
+  ): Promise<Photo> {
+    return this.photoService.update(id, PhotoArgs);
   }
 }

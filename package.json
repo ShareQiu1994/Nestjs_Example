@@ -22,15 +22,19 @@
   "dependencies": {
     "@nestjs/common": "^6.7.2",
     "@nestjs/core": "^6.7.2",
+    "@nestjs/graphql": "^6.5.3",
     "@nestjs/jwt": "^6.1.1",
     "@nestjs/passport": "^6.1.1",
     "@nestjs/platform-express": "^6.7.2",
     "@nestjs/swagger": "^4.1.10",
     "@nestjs/typeorm": "^6.2.0",
     "@types/passport-jwt": "^3.0.3",
+    "apollo-server-express": "^2.9.16",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
     "ejs": "^2.7.1",
+    "graphql": "^14.5.8",
+    "graphql-tools": "^4.0.6",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "pg": "^7.17.1",
@@ -38,6 +42,7 @@
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
     "swagger-ui-express": "^4.1.2",
+    "type-graphql": "^0.17.6",
     "typeorm": "^0.2.22"
   },
   "devDependencies": {

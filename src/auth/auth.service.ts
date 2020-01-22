@@ -23,7 +23,6 @@ export class AuthService {
 
   async validateUser(payload: any): Promise<any> {
     // return await this.usersService.findOneByEmail(payload.email);
-    console.log(payload);
-    return {};
+    return payload;
   }
 }

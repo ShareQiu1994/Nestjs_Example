@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Photo } from './photo.entity';
+import { PhotoArgs } from './dto/photo.dto';
 
 @Injectable()
 export class PhotoService {
@@ -11,8 +12,8 @@ export class PhotoService {
   ) {}
 
   // 获取所有photo
-  async findAll(): Promise<any> {
-    return this.photoRepository.findAndCount();
+  async findAll(): Promise<Photo[]> {
+    return this.photoRepository.find();
   }
 
   // 根据id获取指定photo
@@ -23,25 +24,25 @@ export class PhotoService {
   }
 
   // 新增photo
-  async add(Photo: Photo): Promise<Photo> {
-    return this.photoRepository.save(Photo);
+  async add(PhotoArgs: PhotoArgs): Promise<Photo> {
+    let photo = Object.assign({}, PhotoArgs);
+    return this.photoRepository.save(photo);
   }
 
   // 根据id删除指定photo
   async remove(id: number): Promise<Photo> {
     let photo = await this.findId(id); // 获取实体并删除
     if (photo) {
-      return this.photoRepository.remove(photo);
+      this.photoRepository.remove(photo);
+      return photo;
     }
   }
 
   // 根据id修改指定photo
-  async update(id: number, Photo: Photo): Promise<any> {
+  async update(id: number, PhotoArgs: PhotoArgs): Promise<Photo> {
     let photo = await this.findId(id); // 获取实体并删除
     if (photo) {
-      for (let k in Photo) {
-        photo[k] = Photo[k];
-      }
+      photo = Object.assign(photo, PhotoArgs); // 方法用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target） 参数1:tatgert 参数2:source
       return this.photoRepository.save(photo);
     }
   }

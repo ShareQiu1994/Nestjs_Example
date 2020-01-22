@@ -7,7 +7,6 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-
   /* 配置静态目录 */
   //app.useStaticAssets('public'); // 配置静态资源目录 http://localhost:3000/images/0.jpg
   app.useStaticAssets(join(__dirname, '..', 'public'), {
@@ -21,6 +20,7 @@ async function bootstrap() {
   /* 使用全局管道 http请求产生数据验证,数据转换 */
   app.useGlobalPipes(new ValidationPipe());
 
+  /* swagger配置 */
   const options = new DocumentBuilder()
     .setTitle('liubf Api')
     .setDescription('The cats API description')
