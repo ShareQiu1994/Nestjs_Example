@@ -1,12 +1,10 @@
 import { NotFoundException, UseGuards } from '@nestjs/common';
-import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
-import { PubSub } from 'apollo-server-express';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+// import { PubSub } from 'apollo-server-express';
 import { Photo } from './photo.entity';
 import { PhotoService } from './photo.service';
 import { PhotoArgs } from './dto/photo.dto';
 import { GqlAuthGuard } from '../auth/jwtgql.strategy';
-
-const pubSub = new PubSub();
 
 @Resolver(of => Photo)
 // @UseGuards(GqlAuthGuard) // graphql添加jwt鉴权 调试时建议关闭
