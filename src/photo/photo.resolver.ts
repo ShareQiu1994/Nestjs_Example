@@ -1,4 +1,4 @@
-import { NotFoundException, UseGuards } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Photo } from './photo.entity';
 import { PhotoService } from './photo.service';
@@ -14,11 +14,7 @@ export class PhotoResolver {
   // 获取所有photo
   @Query(returns => [Photo])
   async photoFindAll(): Promise<Photo[]> {
-    const photoList = await this.photoService.findAll();
-    if (!photoList) {
-      throw new NotFoundException();
-    }
-    return photoList;
+    return this.photoService.findAll();
   }
 
   // 根据id获取指定photo
@@ -26,21 +22,13 @@ export class PhotoResolver {
   async photoFindId(
     @Args('id', new ParseIntPipe()) id: number,
   ): Promise<Photo> {
-    const photo = await this.photoService.findId(id);
-    if (!photo) {
-      throw new NotFoundException(id);
-    }
-    return photo;
+    return this.photoService.findId(id);
   }
 
   // 新增photo
   @Mutation(returns => Photo)
   async photoAdd(@Args('photo') PhotoArgs: PhotoArgs): Promise<Photo> {
-    const addPhoto = await this.photoService.add(PhotoArgs);
-    if (!addPhoto) {
-      throw new NotFoundException();
-    }
-    return addPhoto;
+    return this.photoService.add(PhotoArgs);
   }
 
   // 根据id修改指定photo
@@ -49,11 +37,7 @@ export class PhotoResolver {
     @Args('id', new ParseIntPipe()) id: number,
     @Args('photo') PhotoArgs: PhotoArgs,
   ): Promise<Photo> {
-    let updatePhoto = await this.photoService.update(id, PhotoArgs);
-    if (!updatePhoto) {
-      throw new NotFoundException();
-    }
-    return updatePhoto;
+    return this.photoService.update(id, PhotoArgs);
   }
 
   // 根据id删除指定photo
@@ -61,7 +45,6 @@ export class PhotoResolver {
   async photoDelete(
     @Args('id', new ParseIntPipe()) id: number,
   ): Promise<Photo> {
-    let removePhoto = await this.photoService.remove(id);
-    return removePhoto;
+    return this.photoService.remove(id);
   }
 }
