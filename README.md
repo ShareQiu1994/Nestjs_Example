@@ -48,7 +48,7 @@ $ npm run start:prod
 
 # working application program
 $ htpp://localhost:3000
-$ htpp://localhost:3000/api
+$ htpp://localhost:3000/api-docs
 $ htpp://localhost:3000/graphql
 ```
 

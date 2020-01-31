@@ -7,6 +7,10 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  /* 配置跨域 */
+  app.enableCors();
+
   /* 配置静态目录 */
   //app.useStaticAssets('public'); // 配置静态资源目录 http://localhost:3000/images/0.jpg
   app.useStaticAssets(join(__dirname, '..', 'public'), {
@@ -28,7 +32,7 @@ async function bootstrap() {
     .addBearerAuth() // 文档 添加jwt请求验证头
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('/api', app, document);
+  SwaggerModule.setup('/api-docs', app, document);
 
   await app.listen(3000);
 }
