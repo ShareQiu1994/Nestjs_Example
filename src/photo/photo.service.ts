@@ -29,10 +29,7 @@ export class PhotoService {
     });
 
     if (photoRes) return photoRes;
-    throw new HttpException(
-      '抱歉，指定的id找不到对应的数据！',
-      HttpStatus.BAD_REQUEST,
-    );
+    this.notFoundIdError(id);
   }
 
   // 根据id删除指定photo
@@ -42,10 +39,7 @@ export class PhotoService {
       this.photoRepository.remove(photo);
       return photo;
     }
-    throw new HttpException(
-      '抱歉，指定的id找不到对应的数据！',
-      HttpStatus.BAD_REQUEST,
-    );
+    this.notFoundIdError(id);
   }
 
   // 根据id修改指定photo
@@ -55,8 +49,13 @@ export class PhotoService {
       photo = Object.assign(photo, PhotoArgs); // 方法用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target） 参数1:tatgert 参数2:source
       return this.photoRepository.save(photo);
     }
+    this.notFoundIdError(id);
+  }
+
+  // id寻找不到数据 异常处理
+  notFoundIdError(id: number) {
     throw new HttpException(
-      '抱歉，指定的id找不到对应的数据！',
+      `抱歉，指定的id:${id}找不到对应的数据！`,
       HttpStatus.BAD_REQUEST,
     );
   }
