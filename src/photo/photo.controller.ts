@@ -18,6 +18,7 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { PhotoArgs } from './dto/photo.dto';
+import { ParseIntPipe } from '../common/pipetransform/parseint.pipe'; // 管道数据转换 (数据数据转换)
 
 @ApiTags('photo')
 @Controller('photo')
@@ -47,14 +48,14 @@ export class PhotoController {
     description: '参数id',
   })
   @ApiOperation({ summary: '根据id获取指定photo' })
-  findId(@Param('id') id: number): Promise<Photo> {
+  findId(@Param('id', new ParseIntPipe()) id: number): Promise<Photo> {
     return this.photoService.findId(id);
   }
 
   // 根据id删除指定photo
   @Delete(':id')
   @ApiOperation({ summary: '根据id删除photo' })
-  async remove(@Param('id') id: number): Promise<Photo> {
+  async remove(@Param('id', new ParseIntPipe()) id: number): Promise<Photo> {
     return this.photoService.remove(id);
   }
 
@@ -62,7 +63,7 @@ export class PhotoController {
   @Put(':id')
   @ApiOperation({ summary: '根据id修改photo' })
   async update(
-    @Param('id') id: number,
+    @Param('id', new ParseIntPipe()) id: number,
     @Body() PhotoArgs: PhotoArgs,
   ): Promise<Photo> {
     return this.photoService.update(id, PhotoArgs);

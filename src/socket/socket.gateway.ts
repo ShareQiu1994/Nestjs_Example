@@ -29,6 +29,9 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   //接收客户端的数据
   @SubscribeMessage('events')
   handleEvent(client: any, data: any): Observable<WsResponse<any>> | any {
+    // 输出客户端发送的数据
+    console.log(JSON.stringify(data));
+
     // 给客户端发送数据
     this.server.emit('events', {
       event: 'events',
