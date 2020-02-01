@@ -12,6 +12,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PhotoModule } from './photo/photo.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { SocketModule } from './socket/socket.module';
+import { HelmetMiddleware } from '@nest-middlewares/helmet';
+import { CorsMiddleware } from '@nest-middlewares/cors';
+// import { ExpressSessionMiddleware } from '@nest-middlewares/express-session'; // 有BUG 已提交issues 等待作者修复
 
 @Module({
   imports: [
@@ -39,8 +42,22 @@ import { SocketModule } from './socket/socket.module';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
+    // 配置
+
+    /* 头盔中间件 */
+    HelmetMiddleware.configure({
+      noCache: true, // 失效客户端缓存
+      hidePoweredBy: true, // 关闭暴露服务器语言
+    });
+
+    /* 跨域中间件 */
+    CorsMiddleware.configure({
+      origin: '*', // 跨域白名单 如: "http://localhost" * 代表所有
+    });
+
+    // 应用
     consumer
-      .apply(LoggerMiddleware)
+      .apply(LoggerMiddleware, HelmetMiddleware, CorsMiddleware)
       .forRoutes({ path: '*', method: RequestMethod.ALL }); // 指定那些路由需要经过中间件 *表示通配符
   }
 }
