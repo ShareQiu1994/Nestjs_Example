@@ -7,6 +7,8 @@ import {
   Body,
   Delete,
   Put,
+  UseInterceptors,
+  UseFilters,
 } from '@nestjs/common';
 import { PhotoService } from './photo.service';
 import { Photo } from './photo.entity';
@@ -19,11 +21,15 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { PhotoArgs } from './dto/photo.dto';
 import { ParseIntPipe } from '../common/pipetransform/parseint.pipe'; // 管道数据转换 (数据数据转换)
+import { ErrorInterceptor } from '../common/interceptors/error.interceptor'; // 错误异常拦截器
+import { HttpExceptionFilter } from '../common/exception/http-exception.filter'; // 异常过滤器
 
 @ApiTags('photo')
 @Controller('photo')
 @ApiBearerAuth() // 在线文档增加登录鉴权 (Swagger)
 @UseGuards(AuthGuard('jwt')) // 整个类的方法都是jwt鉴权的
+@UseInterceptors(ErrorInterceptor) // 异常拦截器
+@UseFilters(HttpExceptionFilter) // 异常过滤器
 export class PhotoController {
   constructor(private readonly photoService: PhotoService) {}
 

@@ -1,6 +1,19 @@
-import { Controller, Get, Render, Request, Res, Next } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Render,
+  Request,
+  Res,
+  Next,
+  Param,
+  UseGuards,
+  UseInterceptors,
+  Query,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 import { Response } from 'express';
+import { TestGuard } from './common/guards/test.guards';
+import { TestInterceptor } from './common/interceptors/test.interceptor';
 
 @Controller()
 export class AppController {
@@ -35,6 +48,20 @@ export class AppController {
   @Get('getCookie')
   getCookie(@Request() req): string {
     return req.cookies.name || 'cookie is undefined';
+  }
+
+  // 使用守卫(自定义守卫)
+  @UseGuards(TestGuard)
+  @Get('guards/:num')
+  guards(@Param('num') num: number): number {
+    return num;
+  }
+
+  // 使用拦截器(自定义拦截器)
+  @UseInterceptors(TestInterceptor)
+  @Get('interceptors/:num')
+  interceptors(@Param('num') num: number) {
+    return '这是一个普通的拦截器';
   }
 
   @Get('ejs')

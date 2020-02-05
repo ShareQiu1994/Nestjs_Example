@@ -56,7 +56,7 @@ export class PhotoService {
   notFoundIdError(id: number) {
     throw new HttpException(
       `抱歉，指定的id:${id}找不到对应的数据！`,
-      HttpStatus.BAD_REQUEST,
+      HttpStatus.FORBIDDEN,
     );
   }
 }
