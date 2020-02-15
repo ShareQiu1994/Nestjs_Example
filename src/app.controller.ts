@@ -9,11 +9,13 @@ import {
   UseGuards,
   UseInterceptors,
   Query,
+  Session,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Response } from 'express';
 import { TestGuard } from './common/guards/test.guards';
 import { TestInterceptor } from './common/interceptors/test.interceptor';
+import { Liubf } from './common/decorator/liubf.decorator';
 
 @Controller()
 export class AppController {
@@ -26,18 +28,18 @@ export class AppController {
 
   @Get('setSession')
   setSession(@Request() req): string {
-    req.session.username = 'liubf set a session';
+    req.session.username = 'liubf';
     return 'session set success!';
   }
 
   @Get('getSession')
-  getSession(@Request() req): string {
-    return req.session.username || 'session is undefined';
+  getSession(@Session() session): string {
+    return session.username || 'session is undefined';
   }
 
   @Get('setCookie')
   setCookie(@Res() res: Response) {
-    res.cookie('name', 'zhangsan', {
+    res.cookie('name', 'shareQiu1994', {
       // 更多参数参考官网 https://github.com/expressjs/cookie-parser
       maxAge: 60 * 1000 * 30, // 过期时间 毫秒 这里设置30分钟
       httpOnly: false, // 是否允许客户端使用cookie
@@ -62,6 +64,12 @@ export class AppController {
   @Get('interceptors/:num')
   interceptors(@Param('num') num: number) {
     return '这是一个普通的拦截器';
+  }
+
+  // 使用装饰器(自定义装饰器)
+  @Get('liubf')
+  liubf(@Liubf('刘博方') liubf: string) {
+    return liubf;
   }
 
   @Get('ejs')
