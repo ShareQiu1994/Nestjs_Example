@@ -10,7 +10,9 @@ export class PhotoArgs {
     // 验证字段类型
     message: 'name字段必须字符串',
   })
-  @ApiProperty()
+  @ApiProperty({
+    name: 'name',
+  })
   name?: string;
 
   @Field({ nullable: true })
@@ -18,7 +20,9 @@ export class PhotoArgs {
   @IsString({
     message: 'description字段必须字符串',
   })
-  @ApiProperty()
+  @ApiProperty({
+    name: 'description',
+  })
   description?: string;
 
   @Field({ nullable: true })
@@ -26,7 +30,9 @@ export class PhotoArgs {
   @IsString({
     message: 'filename字段必须字符串',
   })
-  @ApiProperty()
+  @ApiProperty({
+    name: 'filename',
+  })
   filename?: string;
 
   @Field({ nullable: true })
@@ -34,7 +40,9 @@ export class PhotoArgs {
   @IsInt({
     message: 'views字段必须为数值',
   })
-  @ApiProperty()
+  @ApiProperty({
+    name: 'views',
+  })
   views?: number;
 
   @Field({ nullable: true })
@@ -42,6 +50,8 @@ export class PhotoArgs {
   @IsBoolean({
     message: 'isPublished字段必须布尔值',
   })
-  @ApiProperty()
+  @ApiProperty({
+    name: 'isPublished',
+  })
   isPublished?: boolean;
 }

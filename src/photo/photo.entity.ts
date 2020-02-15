@@ -10,6 +10,7 @@ export class Photo {
 
   @Field({ nullable: true })
   @Column({
+    name: 'name',
     length: '255',
     type: 'varchar',
     nullable: true,
@@ -18,6 +19,7 @@ export class Photo {
 
   @Field({ nullable: true })
   @Column({
+    name: 'description',
     type: 'text',
     nullable: true,
   }) // text类型
@@ -25,6 +27,7 @@ export class Photo {
 
   @Field({ nullable: true })
   @Column({
+    name: 'filename',
     length: '255',
     type: 'varchar',
     nullable: true,
@@ -33,6 +36,7 @@ export class Photo {
 
   @Field({ nullable: true })
   @Column({
+    name: 'views',
     type: 'int',
     nullable: true,
   }) // int类型
@@ -40,6 +44,7 @@ export class Photo {
 
   @Field({ nullable: true })
   @Column({
+    name: 'isPublished',
     type: 'bool',
     nullable: true,
   })

@@ -52,5 +52,9 @@ async function bootstrap() {
   SwaggerModule.setup('/api-docs', app, document);
 
   await app.listen(3000);
+
+  console.log(
+    '\x1B[33mNestJS程序启动成功！\x1B[0m\x1B[36mhttp://localhost:3000\x1B[0m',
+  );
 }
 bootstrap();

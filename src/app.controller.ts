@@ -22,6 +22,12 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
+  @Render('index.ejs') // 模板注解
+  getIndex(): Object {
+    return { msg: 'Welcome To NestJS! My name is liubf.' }; // 往模板注入变量
+  }
+
+  @Get('hello')
   getHello(): string {
     return this.appService.getHello();
   }
@@ -73,7 +79,7 @@ export class AppController {
   }
 
   @Get('ejs')
-  @Render('index.ejs') // 模板注解
+  @Render('test.ejs') // 模板注解
   getEjs(): Object {
     return { name: '刘博方' }; // 往模板注入变量
   }
