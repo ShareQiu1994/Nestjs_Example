@@ -10,6 +10,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PhotoModule } from './photo/photo.module';
+import { Photo } from './photo/photo.entity';
 import { GraphQLModule } from '@nestjs/graphql';
 import { SocketModule } from './socket/socket.module';
 import { HelmetMiddleware } from '@nest-middlewares/helmet';
@@ -25,7 +26,7 @@ import { CorsMiddleware } from '@nest-middlewares/cors';
       username: 'postgres',
       password: 'lbf@2018',
       database: 'ptyt',
-      entities: ['dist/**/*.entity{.ts,.js}'],
+      entities: [Photo],
       synchronize: true, // 是否同步
     }),
     GraphQLModule.forRoot({
